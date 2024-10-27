@@ -1,17 +1,24 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
 
-import "./App.css";
-const queryClient = new QueryClient({ config: {} });
+import Router from "router/Router";
+import Layout from "layouts/Layout";
+const client = new QueryClient({});
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter></BrowserRouter>
-      <ReactQueryDevtools />
-      <Toaster />
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={client}>
+        <BrowserRouter>
+          <Layout>
+            <Router />
+          </Layout>
+        </BrowserRouter>
+        <ReactQueryDevtools />
+        <Toaster />
+      </QueryClientProvider>
+    </>
   );
 }
 
