@@ -1,22 +1,24 @@
+import HeaderComponets from "components/headerComponets";
 import { Link } from "react-router-dom";
 
 function Header() {
   return (
     //header class
-    <header className="grid w-11/12 grid-cols-12 justify-between items-center border-b-2 p-3  mb-5 mx-auto">
-      <div className="flex col-span-1 justify-between items-center p-1">
+    <header className="grid  grid-cols-12 justify-between items-center border-b border-b-gray-500 p-3 px-8  mb-5 mx-auto dark:bg-[#242424]">
+      <div className="flex col-span-3 justify-around items-center p-">
         <Link to="/">
-          <img
-            src="divar.svg"
-            className=" w-10 border-l-2 border-gray-300 pl-2"
-          />
+          <img src="divar.svg" className=" w-10 " />
         </Link>
+
+        <span className="border h-8 dark:border-slate-600"></span>
         <span className="flex items-center text-gray-700 h-12 cursor-pointer">
           <img src="location.svg" />
-          <p className="mr-1 font-[0.9rem]">تهران</p>
+          <p className="mr-2 text-sm dark:text-slate-400">تهران</p>
         </span>
+        <span className="dark:text-white text-sm">دسته ها</span>
+
+
       </div>
-      <div className="col-span-1"></div>
 
       {/* ---------------------------- searchbox section ---------------------------  */}
       <div className="col-span-4 ">
@@ -26,7 +28,14 @@ function Header() {
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           ></label>
           <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <input
+              type="search"
+              id="default-search"
+              class="block w-full p-4 ps-10 text-xs h-10 text-gray-900 border border-gray-300 rounded-md bg-gray-50 dark:bg-[#353535] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:border-none focus:ring-0"
+              placeholder="جستجو در همه آگهی ها "
+              required
+            />
+            <div class="absolute inset-y-0 end-1  flex items-center px-6 cursor-pointer">
               <svg
                 class="w-4 h-4 text-gray-500 dark:text-gray-400"
                 aria-hidden="true"
@@ -43,36 +52,30 @@ function Header() {
                 />
               </svg>
             </div>
-            <input
-              type="search"
-              id="default-search"
-              class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="جستجو در همه آگهی ها ..."
-              required
-            />
-            <button
-              type="submit"
-              class="text-black absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-            >
-              جستجو
-            </button>
           </div>
         </form>
       </div>
-      <div className="col-span-3"></div>
-      <div className="flex col-span-3 justify-between  ">
-        <Link to="/auth">
-          <span className="flex items-center  text-gray-700 h-12 justify-between w-24 ">
-            <img src="profile.svg" />
-            <p>دیوار من</p>
-          </span>
-        </Link>
-        <Link
-          to="/dashboard"
-          className="bg-[#a62626] text-white  h-12 w-20 align-middle rounded-md mr-12 flex items-center justify-center"
-        >
-          <span> ثبت آگهی</span>
-        </Link>
+
+      {/*  ------------------------------ left section ------------------------------  */}
+
+      <div className="flex col-span-5 px-4 justify-between items-center   ">
+        <HeaderComponets text="دیوار من" icon="profile.svg" isModal="true" />
+        <HeaderComponets text="چت" icon="chat.svg" />
+        <HeaderComponets text="پشتیبانی" icon="support.svg" />
+        <HeaderComponets text="Fa" icon="earth.svg" />
+
+        {/*  -------------------------------- add ads ------------------------------- */}
+
+        <div className=" *:transition-all *:text-sm *:px-3 *:py-2 *:items-center *:rounded-md">
+          <button
+            data-modal-target="authentication-modal"
+            data-modal-toggle="authentication-modal"
+            class="flex bg-red-500 hover:bg-red-700   focus:outline-none   w-26  justify-between transition-all "
+            type="button"
+          >
+            <p>ثبت آگهی</p>
+          </button>
+        </div>
       </div>
     </header>
   );

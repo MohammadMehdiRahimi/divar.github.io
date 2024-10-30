@@ -5,7 +5,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <div className="min-h-screen">{children}</div>
+      <div className="min-h-screen bg-white dark:bg-[#242424]">{children}</div>
       <Footer />
     </>
   );
