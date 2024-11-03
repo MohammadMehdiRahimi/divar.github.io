@@ -1,45 +1,52 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
 // import { useQuery } from "@tanstack/react-query";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setUser } from "reduxs/slices/user.slice";
 import HomePage from "../pages/HomePage";
+import api from "config/axios.config";
 // import AuthPage from "pages/AuthPage";
 // import HomePage from "pages/HomePage";
 // import DashboardPage from "pages/DashboardPage";
 // import AdminPage from "pages/AdminPage";
 // import PageNotFound from "pages/404";
 // import { getProfile } from "services/user";
-// import Loader from "components/modules/Loader";
+import Loader from "components/Loader";
 
 function Router() {
-  //   const { data, isFetching, error } = useQuery({
-  //     queryKey: ["profile"],
-  //     queryFn: getProfile,
-  //   });
+  const userIn = useSelector((state) => state.user.userIn);
+  const dispatch = useDispatch();
 
-  //   if (isFetching) return <Loader />;
+  async function authentication(token) {
+    try {
+      await api.post("/auth/check-token", {
+        token,
+      });
+      dispatch(setUser(true));
+    } catch (error) {
+      dispatch(setUser(false));
+      Cookies.remove("auth");
+    }
+  }
+  useEffect(() => {
+    const token = Cookies.get("auth");
+    if (token && !userIn) {
+      authentication(token);
+    }
+  }, [userIn]);
 
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      {/* <Route
-        path="/dashboard"
-        element={data ? <DashboardPage /> : <Navigate to="/auth" />}
-      /> */}
-      {/* <Route
-        path="/auth"
-        element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
-      />
-      <Route
-        path="/admin"
-        element={
-          data && data.data.role === "ADMIN" ? (
-            <AdminPage />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
-      />
-      <Route path="/*" element={<PageNotFound />} /> */}
-    </Routes>
+    <>
+      {userIn ? (
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      ) : // <Loader />
+      null}
+    </>
   );
 }
 

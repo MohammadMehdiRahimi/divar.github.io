@@ -34,9 +34,12 @@ export default class authController {
       }
       if (result?.expiresIn && result?.code) {
         const token = await authService.jwtSign({ id: result?.id });
+
         return res
-          .cookie("authorization", token, { httpOnly: true, secure: false })
-          .status(200)
+          .cookie("auth", token, {
+            httpOnly: false,
+            secure: false,
+          })
           .json({
             success: true,
             data: {
@@ -61,6 +64,25 @@ export default class authController {
         .json({ success: true, data: { message: authMessage.logOut } });
     } catch (error) {
       next(error);
+    }
+  }
+  static async checkToken(req, res, next) {
+    const { token } = req.body;
+    if (token) {
+      try {
+        await authService.checkToken(token);
+        return res.json({
+          success: true,
+          data: { message: authMessage.userExist },
+        });
+      } catch (error) {
+        // console.log(error.message);
+        next(error);
+      }
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, data: { message: authMessage.invalidToken } });
     }
   }
 }

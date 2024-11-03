@@ -1,18 +1,19 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./src",
-        "paths": {
-            "src/*": ["/*"],
-            "assets/*": ["/assets/*"],
-            "components/*": ["/components/*"],
-            "config/*": ["/config/*"],
-            "constant/*": ["/constant/*"],
-            "layouts/*": ["/layouts/*"],
-            "pages/*": ["/pages/*"],
-            "router/*": ["/router/*"],
-            "services/*": ["/services/*"],
-            "styles/*": ["/styles/*"],
-            "utils/*": ["/utils/*"],
-        }
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": ["/*"],
+      "assets/*": ["/assets/*"],
+      "components/*": ["/components/*"],
+      "config/*": ["/config/*"],
+      "constant/*": ["/constant/*"],
+      "layouts/*": ["/layouts/*"],
+      "pages/*": ["/pages/*"],
+      "router/*": ["/router/*"],
+      "services/*": ["/services/*"],
+      "styles/*": ["/styles/*"],
+      "utils/*": ["/utils/*"],
+      "reduxs/*": ["/reduxs/*"]
     }
+  }
 }

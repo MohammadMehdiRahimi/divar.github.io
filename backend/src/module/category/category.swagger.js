@@ -10,9 +10,6 @@
  *    schemas:
  *          createCategory:
  *                type: object
- *                required:
- *                      - name
- *                      - icon
  *                properties:
  *                      name:
  *                            type: string
@@ -22,6 +19,10 @@
  *                            type: string
  *                      parent:
  *                            type: string
+ *                required:
+ *                      - name
+ *                      - icon
+ *
  */
 /**
  * @swagger
@@ -38,6 +39,12 @@
  *                      application/json:
  *                            schema:
  *                                  $ref: '#/components/schemas/createCategory'
+ *          response:
+ *              description: create user successfully
+ *              content:
+ *                 application/json:
+ *                      schema:
+ *                          type: object
  *
  */
 
@@ -50,6 +57,10 @@
  *            - Category
  *          responses:
  *             200:
- *                description: successfully
+ *              description: get user successfully
+ *              content:
+ *                 application/json:
+ *                      schema:
+ *                          type: object
  *
  */

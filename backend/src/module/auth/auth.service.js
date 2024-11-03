@@ -12,8 +12,8 @@ export default class authService {
     const now = Date.now();
     const user = await authService.checkUserExist(mobile, null, false);
     const otp = {
-      code: randomInt(10000, 99999),
-      expiresIn: Date.now() + 1000 * 60 * 60,
+      code: randomInt(1000, 9999),
+      expiresIn: Date.now() + 1000 * 60 * 2,
     };
     if (!user) {
       try {
@@ -92,5 +92,10 @@ export default class authService {
       expiresIn: "24h",
     });
     return token;
+  }
+  static async checkToken(token) {
+    const authorizedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    await authService.checkUserExist(null, authorizedToken.id, true);
+    return;
   }
 }

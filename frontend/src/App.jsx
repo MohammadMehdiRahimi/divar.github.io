@@ -1,23 +1,22 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
 
 import Router from "router/Router";
 import Layout from "layouts/Layout";
-const client = new QueryClient({});
+import { Provider } from "react-redux";
+import store from "reduxs/store.js";
 function App() {
   return (
     <>
-      <QueryClientProvider client={client}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
           <Layout>
             <Router />
           </Layout>
-        </BrowserRouter>
-        <ReactQueryDevtools />
-        <Toaster />
-      </QueryClientProvider>
+        </Provider>
+      </BrowserRouter>
+      <Toaster />
     </>
   );
 }

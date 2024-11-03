@@ -4,5 +4,6 @@ const router = Router();
 router.post("/send-otp", authController.sendOTP);
 router.post("/check-otp", authController.checkOTP);
 router.post("/logout", authController.logout);
+router.post('/check-token' , authController.checkToken)
 
 export default router;

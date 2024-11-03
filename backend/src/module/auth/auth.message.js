@@ -8,5 +8,6 @@ const authMessage = {
   unauthorize: "please login ",
   invalidToken: "token is invalid",
   logOut: "logout successfully",
+  userExist:"user exist"
 };
 export default authMessage;
