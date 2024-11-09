@@ -1,10 +1,10 @@
 import { Schema, Types, model } from "mongoose";
-import { constNames } from "../exportConstNames";
+import { constNames } from "../exportConstNames.js";
 const optionSchema = new Schema({
   title: { type: String, required: true },
   key: { type: String, required: true },
   type: { type: String, enum: ["number", "string", "array", "boolean"] },
-  enum: { type: Array, default: [] },
+  enums: { type: Array, default: [] },
   guid: { type: String, required: false },
   category: {
     type: Types.ObjectId,

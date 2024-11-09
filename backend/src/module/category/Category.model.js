@@ -1,5 +1,5 @@
 import { model, Schema, Types } from "mongoose";
-import { constNames } from "../exportConstNames";
+import { constNames } from "../exportConstNames.js";
 const categorySchema = new Schema(
   {
     name: { type: String, required: true },
@@ -7,7 +7,7 @@ const categorySchema = new Schema(
     icon: { type: String, required: true },
     parent: {
       type: Types.ObjectId,
-      ref: constNames.categoryModel ,
+      ref: constNames.categoryModel,
       required: false,
     },
     parents: { type: [Types.ObjectId], required: false, default: [] },

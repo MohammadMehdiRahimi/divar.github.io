@@ -1,5 +1,5 @@
 import { Schema, Types, model } from "mongoose";
-import { constNames } from "../exportConstNames";
+import { constNames } from "../exportConstNames.js";
 const adsSchema = new Schema({
   title: { type: String, required: true },
   content: { type: Stirng, required: true },

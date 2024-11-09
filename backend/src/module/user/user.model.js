@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { constNames } from "../exportConstNames";
+import { constNames } from "../exportConstNames.js";
 const OTPSchema = new Schema({
   code: { type: String, required: false, default: null },
   expiresIn: { type: Number, required: false, default: 0 },
