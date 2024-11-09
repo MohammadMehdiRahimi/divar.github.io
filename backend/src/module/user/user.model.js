@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import { constNames } from "../exportConstNames";
 const OTPSchema = new Schema({
   code: { type: String, required: false, default: null },
   expiresIn: { type: Number, required: false, default: 0 },
@@ -14,5 +14,5 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
-const userModel = model("user", userSchema);
+const userModel = model(constNames.userModel, userSchema);
 export default userModel;

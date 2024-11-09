@@ -2,7 +2,6 @@ import express from "express";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import "./src/config/mongoose.config.js";
 import { swaggerUiConfig } from "./src/config/swagger.config.js";
 import mainRouter from "./src/app.routes.js";

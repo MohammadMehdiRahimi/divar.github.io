@@ -1,66 +1,177 @@
 /**
- * @swaager
+ * @swagger
  * name: Category
- * description : category Module and Routes
+ * description: Category Module and Routes
  */
 
 /**
  * @swagger
- *  components:
- *    schemas:
- *          createCategory:
- *                type: object
- *                properties:
- *                      name:
- *                            type: string
- *                      icon:
- *                            type: string
- *                      slug:
- *                            type: string
- *                      parent:
- *                            type: string
- *                required:
- *                      - name
- *                      - icon
- *
- */
-/**
- * @swagger
- * /category:
- *    post:
- *          summery: create new category
- *          tags:
- *            - Category
- *          requestBody:
- *                content:
- *                      application/x-www-form-urlencoded:
- *                            schema:
- *                                  $ref: '#/components/schemas/createCategory'
- *                      application/json:
- *                            schema:
- *                                  $ref: '#/components/schemas/createCategory'
- *          response:
- *              description: create user successfully
- *              content:
- *                 application/json:
- *                      schema:
- *                          type: object
+ * components:
+ *   schemas:
+ *     createCategory:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         icon:
+ *           type: string
+ *         slug:
+ *           type: string
+ *         parent:
+ *           type: string
+ *       required:
+ *         - name
+ *         - icon
  *
  */
 
 /**
  * @swagger
  * /category:
- *    get:
- *          summery: get All categories
- *          tags:
- *            - Category
- *          responses:
- *             200:
- *              description: get user successfully
- *              content:
- *                 application/json:
- *                      schema:
- *                          type: object
+ *   post:
+ *     summary: Create a new category
+ *     tags:
+ *       - Category
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             $ref: '#/components/schemas/createCategory'
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/createCategory'
+ *     responses:
+ *       200:
+ *         description: Category created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *       201:
+ *         description: Resource created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
  *
+ */
+
+/**
+ * @swagger
+ * /category:
+ *   get:
+ *     summary: Get all categories
+ *     tags:
+ *       - Category
+ *     responses:
+ *       200:
+ *         description: Successfully fetched all categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       201:
+ *         description: Category created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
  */

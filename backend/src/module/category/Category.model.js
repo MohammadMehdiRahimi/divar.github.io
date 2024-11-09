@@ -1,42 +1,29 @@
 import { model, Schema, Types } from "mongoose";
-
-// const categorySchema = new Schema(
-//   {
-//     name: { type: String, required: true },
-//     slug: { type: String, required: true },
-//     icon: { type: String, required: true },
-//     parent: { type: Types.ObjectId, required: false, ref: "Category" },
-//     parents: {
-//       type: [Types.ObjectId],
-//       required: false,
-//       default: [],
-//       ref: "Category",
-//     },
-//   },
-//   { versionKey: false, id: false, toJSON: { virtuals: true } }
-// );
-
-// categorySchema.virtual("children", {
-//   ref: "Category",
-//   localField: "_id",
-//   foreignField: "parent",
-// });
-
+import { constNames } from "../exportConstNames";
 const categorySchema = new Schema(
   {
     name: { type: String, required: true },
     slug: { type: String, required: true },
     icon: { type: String, required: true },
-    parent: { type: Types.ObjectId, ref: "Category", required: false },
-    parnets: { type: [Types.ObjectId], required: false, default: [] },
+    parent: {
+      type: Types.ObjectId,
+      ref: constNames.categoryModel ,
+      required: false,
+    },
+    parents: { type: [Types.ObjectId], required: false, default: [] },
   },
   { versionKey: false, id: false, toJSON: { virtuals: true } }
 );
 
 categorySchema.virtual("children", {
-  ref: "Category",
+  ref: constNames.categoryModel,
   localField: "_id",
   foreignField: "parent",
 });
-const categoryModel = model("categoryModel", categorySchema);
-export default categoryModel;
+function autoPopulate(next) {
+  this.populate([{ path: "children" }]);
+  next();
+}
+categorySchema.pre("find", autoPopulate).pre("findOne", autoPopulate);
+const Category = model(constNames.categoryModel, categorySchema);
+export default Category;
