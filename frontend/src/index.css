@@ -4,3 +4,6 @@
 * {
   font-family: Vazirmatn, sans-serif;
 }
+.rtl {
+  direction: rtl;
+}
