@@ -4,13 +4,14 @@ const categorySchema = new Schema(
   {
     name: { type: String, required: true },
     slug: { type: String, required: true },
-    icon: { type: String, required: true },
+    icon: { type: String, required: false },
     parent: {
       type: Types.ObjectId,
       ref: constNames.categoryModel,
       required: false,
     },
     parents: { type: [Types.ObjectId], required: false, default: [] },
+    isTarget: { type: Boolean, required: false, default: false },
   },
   { versionKey: false, id: false, toJSON: { virtuals: true } }
 );

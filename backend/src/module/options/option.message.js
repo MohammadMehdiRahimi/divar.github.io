@@ -1,5 +1,9 @@
 export const optionMessage = {
-  create: "create option successfully",
-      NotFoundCategory: "category not found",
-  keyConflict:"key is already exist in this category"
+  create: "Option created successfully",
+  NotFoundCategory: "Category not found",
+  keyConflict: "The key already exists in this category",
+  find: "Options retrieved successfully",
+  getOptionSlug: "get option category successfullyj",
+  deleteOption: "delete option successfully",
+  update: "update options successfully",
 };

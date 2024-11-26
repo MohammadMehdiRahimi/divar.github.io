@@ -6,8 +6,8 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setUser } from "reduxs/slices/user.slice";
-import HomePage from "../pages/HomePage";
-import api from "config/axios.config";
+import HomePage from "../pages/HomePage.jsx";
+import api from "config/axios.config.js";
 // import AuthPage from "pages/AuthPage";
 // import HomePage from "pages/HomePage";
 // import DashboardPage from "pages/DashboardPage";
@@ -15,6 +15,7 @@ import api from "config/axios.config";
 // import PageNotFound from "pages/404";
 // import { getProfile } from "services/user";
 import Loader from "components/Loader";
+import CreateAds from "pages/createAds/CreateAds";
 
 function Router() {
   const userIn = useSelector((state) => state.user.userIn);
@@ -40,12 +41,14 @@ function Router() {
 
   return (
     <>
-      {userIn ? (
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      ) : // <Loader />
-      null}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {userIn && (
+          <>
+            <Route path="/ads/create" element={<CreateAds />}></Route>
+          </>
+        )}
+      </Routes>
     </>
   );
 }

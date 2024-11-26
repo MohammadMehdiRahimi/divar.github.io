@@ -5,13 +5,13 @@ export default class CategoryController {
   static async createCategory(req, res, next) {
     try {
       const { name, slug, icon, parent } = req.body;
-      await CategoryService.create({
+      const result = await CategoryService.create({
         name,
         slug,
         icon,
         parent,
       });
-
+      console.log(result);
       return res.status(200).json({
         success: true,
         data: { message: categoryMessage.created },
@@ -23,7 +23,6 @@ export default class CategoryController {
   static async findCategory(req, res, next) {
     try {
       const categories = await CategoryService.find();
-      console.log(categories);
       return res.json({
         success: true,
         data: { message: categoryMessage.getCategories, body: categories },
@@ -32,4 +31,16 @@ export default class CategoryController {
       next(error);
     }
   }
+  // static async findCategoryBySlug(req, res, next) {
+  //   try {
+  //     const { slug } = req.query;
+  //     const category = await CategoryService.findBySlug(slug);
+  //     return res.json({
+  //       success: true,
+  //       data: { message: categoryMessage.getCategories, body: category },
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }

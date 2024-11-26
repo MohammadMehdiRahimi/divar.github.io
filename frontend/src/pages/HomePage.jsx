@@ -1,32 +1,258 @@
-// import { useQuery } from "@tanstack/react-query";
-// import Loader from "components/modules/Loader";
-// import Main from "components/templates/Main";
-// import Sidebar from "components/templates/Sidebar";
-// import { getCategory } from "services/admin";
-// import { getAllPosts } from "services/user";
-
-// const style = { display: "flex" };
+import HomeComponents from "components/HomeComponents/Home.components";
 
 export default function HomePage() {
-  //   const { data: posts, isFetching: postLoading } = useQuery({
-  //     queryKey: ["post-list"],
-  //     queryFn: getAllPosts,
-  //   });
-  //   const { data: categories, isFetching: categoryLoading } = useQuery({
-  //     queryKey: ["get-categories"],
-  //     queryFn: getCategory,
-  //   });
+  const listAds = [
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
 
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    ,
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    ,
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    ,
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    ,
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+    ,
+    {
+      title: "چراغ جلو عقب بنز S500 s350 W221",
+      desc: `توضیحات
+یک جفت چراغ جلو بنز S500–S350
+2013
+دیلایت دار
+سالم و مرتب فابریک
+یک جفت خطر عقب فول ال اى دى٢٠١٣ مطابق با تصاویر
+فقط تماس
+
+
+`,
+      province: "تهران",
+      img: "ads/1.jpg",
+      prices: "توافقی",
+      category: "car",
+      location: "دردشت",
+      isUp: true,
+      time: "1 ساعت پیش",
+    },
+  ];
   return (
-    <>
-      {/* {postLoading || categoryLoading ? (
-        <Loader />
-      ) : (
-        <div style={style}>
-          <Sidebar categories={categories} />
-          <Main posts={posts} />
-        </div>
-      )} */}
-    </>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3  grid-cols-1  gap-2 h-fit *:cursor-pointer w-full px-4 ">
+      {listAds.map((item, index) => (
+        <HomeComponents key={index} item={item} />
+      ))}
+    </div>
   );
 }

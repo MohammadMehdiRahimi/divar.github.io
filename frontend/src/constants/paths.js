@@ -2,7 +2,6 @@ export const paths = [
   "src",
   "assets",
   "components",
-  "config",
   "constants",
   "layouts",
   "pages",
@@ -11,4 +10,5 @@ export const paths = [
   "styles",
   "utils",
   "reduxs",
+  "config",
 ];

@@ -6,6 +6,8 @@ import "./src/config/mongoose.config.js";
 import { swaggerUiConfig } from "./src/config/swagger.config.js";
 import mainRouter from "./src/app.routes.js";
 import allException from "./src/common/exception/all-exception.handler.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 async function main() {
   const app = express();

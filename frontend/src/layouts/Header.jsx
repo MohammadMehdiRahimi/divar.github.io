@@ -1,6 +1,7 @@
 import SimpleComponent from "components/HeaderComponents/simpleComponent";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ModalComponents from "components/HeaderComponents/modalComponents";
 
@@ -8,6 +9,12 @@ function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sendCode, setSendCode] = useState(false);
   const { userIn } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  /* -------------------------------- functions ------------------------------- */
+  function createAdsHandle() {
+    userIn ? navigate("/ads/create") : setModalIsOpen(true);
+  }
 
   return (
     //header class
@@ -83,7 +90,7 @@ function Header() {
           <button
             className="flex bg-red-500 hover:bg-red-700   focus:outline-none   w-26  justify-between transition-all "
             type="button"
-            onClick={() => setModalIsOpen(true)}
+            onClick={createAdsHandle}
           >
             <p>ثبت آگهی</p>
           </button>

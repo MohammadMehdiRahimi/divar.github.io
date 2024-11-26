@@ -76,7 +76,7 @@ export default class authController {
           data: { message: authMessage.userExist },
         });
       } catch (error) {
-        // console.log(error.message);
+
         next(error);
       }
     } else {

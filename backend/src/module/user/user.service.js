@@ -16,7 +16,6 @@ export default class userService {
       "kjdKLJSDFJSDFJ@dskf&$9$234*&&%^fajsdfl"
     );
 
-    // console.log(objectId);
     const result = await authService.checkUserExist(null, id);
     // if (!result)
     //   throw new createHttpError.NotFound(authMessage.notFoundUserError);

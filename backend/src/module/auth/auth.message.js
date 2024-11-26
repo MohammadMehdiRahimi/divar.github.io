@@ -1,13 +1,13 @@
 const authMessage = {
-  notFoundUserError: "user not found",
-  otpNotExpire: "otp code is not expired. Please try again later",
-  sendOTPSuccessfully: "send OTP successfully",
-  checkOTPSuccessfully: "check OTP successfully",
-  otpCodeExpired: "OTP code is expired please try again ",
-  otpCodeWrong: "OTP code is not true",
-  unauthorize: "please login ",
-  invalidToken: "token is invalid",
-  logOut: "logout successfully",
-  userExist:"user exist"
+  notFoundUserError: "کاربر یافت نشد",
+  otpNotExpire: "کد تایید هنوز منقضی نشده است. لطفاً بعداً دوباره امتحان کنید",
+  sendOTPSuccessfully: "کد تایید با موفقیت ارسال شد",
+  checkOTPSuccessfully: "کد تایید با موفقیت بررسی شد",
+  otpCodeExpired: "کد تایید منقضی شده است، لطفاً دوباره امتحان کنید",
+  otpCodeWrong: "کد تایید صحیح نمی‌باشد",
+  unauthorize: "لطفاً وارد حساب کاربری خود شوید",
+  invalidToken: "توکن نامعتبر است",
+  logOut: "با موفقیت از حساب خارج شدید",
+  userExist: "کاربر موجود است",
 };
 export default authMessage;

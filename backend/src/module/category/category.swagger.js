@@ -21,7 +21,7 @@
  *           type: string
  *       required:
  *         - name
- *         - icon
+ *         - slug
  *
  */
 
