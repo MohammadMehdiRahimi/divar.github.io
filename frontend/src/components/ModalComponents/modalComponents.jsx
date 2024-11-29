@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "config/axios.config";
 import Joi from "joi";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "reduxs/slices/user.slice";
+import { useDispatch } from "react-redux";
+import { setUserIn, setUserId } from "reduxs/slices/user.slice";
 export default function ModalComponents({
   modalIsOpen,
   setModalIsOpen,
@@ -58,12 +58,17 @@ export default function ModalComponents({
           code: confirmCode,
         });
         if (data.success) {
-          dispatch(setUser(true));
+          localStorage.setItem(
+            "Authorization",
+            `Bearer ${data.data.body.token}`
+          );
+          dispatch(setUserIn(true));
+          dispatch(setUserId(data.data.body.id));
           setModalIsOpen(false);
           setSendCode(false);
         }
       } catch (error) {
-        dispatch(setUser(false));
+        dispatch(setUserIn(false));
         setErrorOccured(true);
         setErrorMessage(error.response.data.data.message);
       }
@@ -120,7 +125,7 @@ export default function ModalComponents({
     <>
       {modalIsOpen && (
         <div
-          className="w-full absolute top-0 right-0  h-full transition-all flex justify-center items-center text-white"
+          className="w-full absolute top-0 right-0  h-full transition-all flex justify-center items-center text-white z-50"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
         >
           <div className="bg-[#242424] w-1/3 h-4/6 flex justify-between flex-col  items-center rounded-xl p-3 bg-red ">

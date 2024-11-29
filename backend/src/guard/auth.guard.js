@@ -7,9 +7,10 @@ import mongoose from "mongoose";
 
 export const checkAuth = async (req, res, next) => {
   try {
-    const token = req?.cookies?.authorization;
+    // console.log(req.headers);
+    let token = req?.cookies?.authorization ?? req.headers.authorization;
     if (!token) throw new createHttpError.Unauthorized(authMessage.unauthorize);
-    const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const data = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET_KEY);
     if (data?.id) {
       const user = await authService.checkUserExist(null, data.id);
       if (!user) {
@@ -18,7 +19,7 @@ export const checkAuth = async (req, res, next) => {
           data: { message: authMessage.notFoundUserError },
         });
       }
-      req.user = {id:user._id };
+      req.user = { id: user._id };
       next();
     } else {
       throw new createHttpError.NotFound(authMessage.invalidToken);

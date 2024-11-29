@@ -6,4 +6,5 @@ router.post("/check-otp", authController.checkOTP);
 router.post("/logout", authController.logout);
 router.post('/check-token' , authController.checkToken)
 
+
 export default router;

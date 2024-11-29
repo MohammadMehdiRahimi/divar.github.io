@@ -9,12 +9,14 @@ const ClickHandler = ({ setPoint }) => {
   });
   return null;
 };
-export default function Map({ setFormData }) {
-
+export default function Map({ setListData }) {
   const [point, setPoint] = useState(null);
   useEffect(() => {
     if (point) {
-      setFormData((prev) => ({ ...prev, coordinate: point }));
+      setListData((prev) => ({
+        ...prev,
+        coordinate: [point.lat, point.lng],
+      }));
     }
   }, [point]);
   return (

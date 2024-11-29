@@ -1,9 +1,8 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { setIsSmall } from "reduxs/slices/smallSize.slic";
+import { useSelector } from "react-redux";
+
 
 function Layout({ children }) {
   /* ---------------------------------- hooks --------------------------------- */

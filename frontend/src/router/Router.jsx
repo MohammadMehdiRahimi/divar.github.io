@@ -1,40 +1,44 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import axios from "axios";
-// import { useQuery } from "@tanstack/react-query";
+
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUser } from "reduxs/slices/user.slice";
+import {
+  setUserIn,
+  setUserId,
+  setUserBookmarks,
+} from "reduxs/slices/user.slice";
 import HomePage from "../pages/HomePage.jsx";
 import api from "config/axios.config.js";
-// import AuthPage from "pages/AuthPage";
-// import HomePage from "pages/HomePage";
-// import DashboardPage from "pages/DashboardPage";
-// import AdminPage from "pages/AdminPage";
-// import PageNotFound from "pages/404";
-// import { getProfile } from "services/user";
-import Loader from "components/Loader";
+
 import CreateAds from "pages/createAds/CreateAds";
+import SinglePage from "pages/adsSinglePage/SinglePage.jsx";
+import BookmarksPage from "pages/bookmarks/BookmarksPage.jsx";
+import MyAdsPage from "pages/myAds/MyAdsPage.jsx";
 
 function Router() {
   const userIn = useSelector((state) => state.user.userIn);
   const dispatch = useDispatch();
-
   async function authentication(token) {
     try {
-      await api.post("/auth/check-token", {
-        token,
+      const { data } = await api.post("/auth/check-token", null, {
+        headers: { Authorization: token },
       });
-      dispatch(setUser(true));
+      dispatch(setUserBookmarks({ adsId: data.bookmarks }));
+      dispatch(setUserId(data.id));
+      dispatch(setUserIn(true));
     } catch (error) {
-      dispatch(setUser(false));
-      Cookies.remove("auth");
+      console.log(error);
+      dispatch(setUserIn(false));
+      Cookies.remove("Authorization");
+      localStorage.removeItem("Authorization");
     }
   }
   useEffect(() => {
-    const token = Cookies.get("auth");
-    if (token && !userIn) {
+    const token =
+      Cookies.get("Authorization") ?? localStorage.getItem("Authorization");
+    if (token) {
       authentication(token);
     }
   }, [userIn]);
@@ -43,9 +47,12 @@ function Router() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/ads/single" element={<SinglePage />} />
         {userIn && (
           <>
-            <Route path="/ads/create" element={<CreateAds />}></Route>
+            <Route path="/ads/create" element={<CreateAds />} />
+            <Route path="/bookmarks" element={<BookmarksPage />} />
+            <Route path="/my-ads" element={<MyAdsPage />} />
           </>
         )}
       </Routes>

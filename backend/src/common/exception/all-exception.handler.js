@@ -8,9 +8,9 @@ export default class allException {
   }
   static async generalErrorHandler(app) {
     app.use((err, req, res, next) => {
-      console.log("🚀 ~ allException ~ app.use ~ err:", err)
+      console.log("🚀 ~ allException ~ app.use ~ err:", err);
       const statusCode = err?.status ?? err?.statusCode ?? 500;
- 
+
       const message = err?.message ?? err?.stack ?? "Internal Server Error";
       res
         .status(statusCode)

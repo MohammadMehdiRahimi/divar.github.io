@@ -3,9 +3,10 @@ import Category from "./category";
 import Ads from "./Ads";
 import { setCategoryId } from "reduxs/slices/ads.slice";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 export default function CreateAds() {
   const [step, setStep] = useState(1);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [initialCategoryList, setInitialCategoryList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [isChild, setIsChild] = useState(false);
@@ -24,6 +25,10 @@ export default function CreateAds() {
     categoryList,
     setCategoryList,
   };
+  if (error) {
+    console.log(error);
+    toast.error(`خطا: ${error}`);
+  }
   return (
     <div className="w-full grid grid-cols-12  justify-center p-4">
       <div className="hidden md:col-span-3 md:grid"></div>

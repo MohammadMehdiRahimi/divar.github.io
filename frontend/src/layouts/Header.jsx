@@ -1,9 +1,9 @@
-import SimpleComponent from "components/HeaderComponents/simpleComponent";
+import SimpleComponent from "components/ModalComponents/simpleComponent";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ModalComponents from "components/HeaderComponents/modalComponents";
+import ModalComponents from "components/ModalComponents/modalComponents";
 
 function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);

@@ -11,6 +11,7 @@ const userSchema = new Schema(
     mobile: { type: String, required: true, unique: true },
     verifiedMobile: { type: Boolean, required: false, default: false },
     otp: { type: OTPSchema },
+    bookmarks: { type: [Schema.Types.ObjectId], ref: constNames.adsModel },
   },
   { timestamps: true }
 );

@@ -12,15 +12,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "reduxs/slices/user.slice";
+import { setUserIn } from "reduxs/slices/user.slice";
 import { setIsSmall } from "reduxs/slices/smallSize.slic";
 
 export default function SideBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logout = () => {
-    dispatch(setUser(false));
-    Cookies.remove("auth");
+    dispatch(setUserIn(false));
+    Cookies.remove("Authorization");
+    localStorage.removeItem("Authorization");
     navigate("/");
   };
   const closeHandle = () => {
@@ -34,8 +35,16 @@ export default function SideBar() {
   const list = [
     { name: "کاربر دیوار", icon: PersonIcon },
     { name: "تایید هویت", icon: GppGoodIcon },
-    { name: "آگهی های من", icon: ReceiptLongIcon },
-    { name: "نشان ها", icon: BookmarkIcon },
+    {
+      name: "آگهی های من",
+      icon: ReceiptLongIcon,
+      function: () => navigate("/my-ads"),
+    },
+    {
+      name: "نشان ها",
+      icon: BookmarkIcon,
+      function: () => navigate("/bookmarks"),
+    },
     { name: "یادداشت", icon: NoteAltIcon },
     { name: "بازدید های اخیر", icon: AccessTimeIcon },
     { name: "رزومه من", icon: PersonIcon },

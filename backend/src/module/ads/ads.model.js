@@ -2,17 +2,20 @@ import { Schema, Types, model } from "mongoose";
 import { constNames } from "../exportConstNames.js";
 const adsSchema = new Schema(
   {
+    author: { type: Types.ObjectId, required: true },
     title: { type: String, required: true },
-    content: { type: Stirng, required: true },
-    category: {
+    description: { type: String, required: true },
+    categoryId: {
       type: Types.ObjectId,
       ref: constNames.categoryModel,
       required: true,
     },
     province: { type: String, required: true },
-    districted: { type: String, required: true },
-    cordinate: { type: [Number], required: true },
+    city: { type: String, required: true },
+    coordinate: { type: [String] },
     images: { type: [String], required: false, default: [] },
+    options: { type: [Object], default: [] },
+    isUp: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

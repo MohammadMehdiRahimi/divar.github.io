@@ -34,9 +34,8 @@ export default class authController {
       }
       if (result?.expiresIn && result?.code) {
         const token = await authService.jwtSign({ id: result?.id });
-
         return res
-          .cookie("auth", token, {
+          .cookie("Authorization", `Bearer ${token}`, {
             httpOnly: false,
             secure: false,
           })
@@ -44,7 +43,7 @@ export default class authController {
             success: true,
             data: {
               message: authMessage.checkOTPSuccessfully,
-              token,
+              body: { id: result?.id, token },
             },
           });
       }
@@ -59,7 +58,7 @@ export default class authController {
   static async logout(req, res, next) {
     try {
       return res
-        .clearCookie("authorization")
+        .clearCookie("Authorization")
         .status(200)
         .json({ success: true, data: { message: authMessage.logOut } });
     } catch (error) {
@@ -67,16 +66,30 @@ export default class authController {
     }
   }
   static async checkToken(req, res, next) {
-    const { token } = req.body;
+    const { authorization } = req.headers;
+    const token = authorization.split(" ")[1];
+    if (token) {
+      try {
+        const { id, bookmarks } = await authService.checkToken(token);
+        return res.json({ id, bookmarks });
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, data: { message: authMessage.invalidToken } });
+    }
+  }
+
+  static async checkAuth(req, res, next) {
+    const { authorization } = req.headers;
+    const token = authorization.split(" ")[1];
     if (token) {
       try {
         await authService.checkToken(token);
-        return res.json({
-          success: true,
-          data: { message: authMessage.userExist },
-        });
+        next();
       } catch (error) {
-
         next(error);
       }
     } else {

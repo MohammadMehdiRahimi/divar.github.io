@@ -94,8 +94,16 @@ export default class authService {
     return token;
   }
   static async checkToken(token) {
-    const authorizedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    await authService.checkUserExist(null, authorizedToken.id, true);
-    return;
+    try {
+      const authorizedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const { _id: id, bookmarks } = await authService.checkUserExist(
+        null,
+        authorizedToken.id,
+        true
+      );
+      return { id, bookmarks };
+    } catch (error) {
+      throw createHttpError.Unauthorized(error.message);
+    }
   }
 }

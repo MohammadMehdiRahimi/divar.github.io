@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import ImageIcon from "@mui/icons-material/Image";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Maps from "components/Map";
+
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 export default function Ads({ props }) {
@@ -23,46 +25,116 @@ export default function Ads({ props }) {
   const [provinces, setProvinces] = useState([]);
   const [states, setStates] = useState([]);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const author = useSelector((state) => state.user.userId);
+  const [listData, setListData] = useState({
     title: "",
     description: "",
     categoryId,
-    provinceId: "",
-    cityId: "",
+    province: "",
+    city: "",
     coordinate: null,
     images: [],
+    options: [],
   });
 
   /* -------------------------------- functions ------------------------------- */
   async function changeHandle(e) {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    if (e.target.name == "provinceId") {
-      try {
-        const provinceId = e.target.value;
-        const response = await axios.get(
-          `https://iran-locations-api.ir/api/v1/fa/cities?state_id=${provinceId}`
-        );
-        setStates(response.data);
-      } catch (error) {
-        setError(error.message);
+    try {
+      let { name, value } = e.target;
+      const key = name.split("-")[1];
+      if (name.startsWith("options")) {
+        let keyIsExist = false;
+        for (let i = 0; i < listData.options.length; i++) {
+          if (Object.keys(listData.options[i])[0] == key) {
+            keyIsExist = true;
+            setListData((prev) => {
+              let newOpt = [...prev.options];
+              newOpt[i] = { [key]: value };
+              return {
+                ...prev,
+                options: newOpt,
+              };
+            });
+            break;
+          }
+        }
+        if (!keyIsExist) {
+          setListData((prev) => ({
+            ...prev,
+            options: [...prev.options, { [key]: value }],
+          }));
+          return;
+        }
+      } else if (name == "province") {
+        const province = provinces.find((province) => province.id == value);
+
+        setListData((prev) => ({ ...prev, [name]: province?.name ?? value }));
+        await fetchCities(value);
+        return;
+      } else if (name == "city") {
+        console.log(name, value);
+        const city = states.find((state) => state.id == value);
+        console.log(city);
+        if (city) value = city.name;
+        setListData((prev) => ({ ...prev, [name]: value }));
+      } else {
+        setListData((prev) => ({ ...prev, [name]: value }));
       }
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  async function fetchCities(provinceId) {
+    try {
+      const response = await axios.get(
+        `https://iran-locations-api.ir/api/v1/fa/cities?state_id=${provinceId}`
+      );
+      setStates(response.data);
+    } catch (error) {
+      setError(error.message);
     }
   }
 
   function handleFileChange(e) {
     const images = Array.from(e.target.files);
-    setFormData((prev) => ({
+    setListData((prev) => ({
       ...prev,
       images: [...images],
     }));
     return;
   }
-
   async function submintHandle(e) {
+    let formData = new FormData();
     e.preventDefault();
+
+    formData.append("author", author);
+    for (const key in listData) {
+      if (key === "images") {
+        listData.images.forEach((file) => formData.append("images", file));
+      } else if (key == "options") {
+        listData.options.forEach((option) => {
+          return formData.append("options", JSON.stringify(option));
+        });
+      } else {
+        formData.append(key, listData[key]);
+      }
+    }
     try {
+      const { data } = await toast.promise(
+        api.post("/ads/create", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        }),
+        {
+          loading: "در حال انتشار آگهی ...",
+          success: "آگهی با موفقیت منتشر شد",
+        }
+      );
+      console.log(data);
+      setTimeout(() => navigate("/"), [2000]);
     } catch (error) {
-      setError(error.message);
+      console.log(error);
+      setError(error.response.data.data.message);
     }
   }
   /* ------------------------------- useEffects ------------------------------- */
@@ -75,7 +147,7 @@ export default function Ads({ props }) {
     const getOptions = async () => {
       try {
         const { data } = await api.get(
-          `/option//category-option-by-id/${categoryId}`
+          `/option/category-option-by-id/${categoryId}`
         );
         if (data.success) {
           setOptions(data.data.body);
@@ -105,6 +177,8 @@ export default function Ads({ props }) {
     <form
       className="flex flex-col w-full text-[#E3E3E3] gap-4"
       onSubmit={submintHandle}
+      method="POST"
+      encType="multipart/form-data"
     >
       <p
         onClick={() => {
@@ -125,9 +199,10 @@ export default function Ads({ props }) {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3">
             {" "}
-            <h5>شهر</h5>
+            <h5>استان</h5>
             <select
-              name="provinceId"
+              name="province"
+              required
               onChange={changeHandle}
               className="w-full bg-transparent *:bg-[#242424] rounded text-xs "
             >
@@ -135,7 +210,7 @@ export default function Ads({ props }) {
               {provinces.length > 0 &&
                 provinces.map((province, idx) => {
                   return (
-                    <option key={idx} value={province.id}>
+                    <option key={`${province.id}${idx}`} value={province.id}>
                       {province.name}
                     </option>
                   );
@@ -143,17 +218,18 @@ export default function Ads({ props }) {
             </select>
           </div>
           <div className="flex flex-col gap-3">
-            <h5>محله</h5>
+            <h5>شهر</h5>
             <select
+              required
               className="w-full bg-transparent *:bg-[#242424] rounded text-xs"
               onChange={changeHandle}
-              name="cityId"
+              name="city"
             >
               {states.length > 0 && <option disabled>انتخاب کنید</option>}
               {states.length > 0 ? (
-                states.map((state) => {
+                states.map((state, idx) => {
                   return (
-                    <option key={state.id} value={state.id}>
+                    <option key={idx} value={state.id}>
                       {state.name}
                     </option>
                   );
@@ -165,7 +241,7 @@ export default function Ads({ props }) {
           </div>
           <div>
             <h5>موقعیت مکانی آگهی</h5>
-            <Maps setFormData={setFormData} />
+            <Maps setListData={setListData} />
           </div>
         </div>
       </div>
@@ -226,7 +302,7 @@ export default function Ads({ props }) {
             {item.type == "array" ? (
               <select
                 className="w-full bg-transparent *:bg-[#242424] text-xs rounded"
-                name={item.key}
+                name={`options-${item.key}`}
                 onChange={changeHandle}
               >
                 <option disabled>انتخاب کنید</option>
@@ -241,7 +317,7 @@ export default function Ads({ props }) {
             ) : (
               <input
                 placeholder={item.guid}
-                name={item.key}
+                name={`options-${item.key}`}
                 onChange={changeHandle}
                 className="bg-transparent border border-slate-400 placeholder:text-sm focus:ring-red-600 rounded p-1"
               />
@@ -256,6 +332,7 @@ export default function Ads({ props }) {
             onChange={changeHandle}
             className="bg-transparent border border-slate-400 placeholder:text-sm focus:ring-red-600 rounded p-1 w-full"
             name="title"
+            required
           />
         </div>
         <div className="flex flex-col gap-2">
