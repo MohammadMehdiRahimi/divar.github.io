@@ -69,7 +69,7 @@ export default class adsController {
   static async getMyAds(req, res, next) {
     try {
       const { userId } = req.body;
-      
+
       const myAds = await adsService.getMyAds(userId);
       return res.json({
         success: true,

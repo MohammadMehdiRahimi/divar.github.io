@@ -6,6 +6,9 @@ router.get("/whoami", checkAuth, userController.whoami);
 router.post("/mobile", userController.getUserMobile);
 router.post("/add-bookmarks", checkAuth, userController.addBookmarks);
 router.post('/delete-bookmarks' , checkAuth , userController.deleteBookmarks)
-router.get('/bookmarks' , checkAuth , userController.getBookmarks )
+router.get('/bookmarks', checkAuth, userController.getBookmarks)
+router.post('/add-recently', checkAuth, userController.addInRecentlyViewed)
+router.post("/get-recently", checkAuth, userController.getRecentlyViewed);
+
 
 export default router;

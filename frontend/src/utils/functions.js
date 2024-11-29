@@ -34,10 +34,6 @@ export const timeDif = (times) => {
   }
 };
 
-// export const numberEngToPersian = (number) => {
-//   return number.toString().replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
-// };
-
 export const numberEngToPersian = (number) => {
   return number.toString().replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
 };

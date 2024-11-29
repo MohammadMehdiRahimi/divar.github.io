@@ -72,9 +72,9 @@ export default function Ads({ props }) {
         await fetchCities(value);
         return;
       } else if (name == "city") {
-        console.log(name, value);
+
         const city = states.find((state) => state.id == value);
-        console.log(city);
+    
         if (city) value = city.name;
         setListData((prev) => ({ ...prev, [name]: value }));
       } else {
@@ -130,7 +130,7 @@ export default function Ads({ props }) {
           success: "آگهی با موفقیت منتشر شد",
         }
       );
-      console.log(data);
+
       setTimeout(() => navigate("/"), [2000]);
     } catch (error) {
       console.log(error);

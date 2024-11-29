@@ -9,13 +9,14 @@ import {
   setUserId,
   setUserBookmarks,
 } from "reduxs/slices/user.slice";
-import HomePage from "../pages/HomePage.jsx";
+import HomePage from "../pages/HomePage/HomePage.jsx";
 import api from "config/axios.config.js";
 
 import CreateAds from "pages/createAds/CreateAds";
 import SinglePage from "pages/adsSinglePage/SinglePage.jsx";
 import BookmarksPage from "pages/bookmarks/BookmarksPage.jsx";
 import MyAdsPage from "pages/myAds/MyAdsPage.jsx";
+import RecentlyPage from "pages/recentlyPage/RecentlyPage.jsx";
 
 function Router() {
   const userIn = useSelector((state) => state.user.userIn);
@@ -53,6 +54,7 @@ function Router() {
             <Route path="/ads/create" element={<CreateAds />} />
             <Route path="/bookmarks" element={<BookmarksPage />} />
             <Route path="/my-ads" element={<MyAdsPage />} />
+            <Route path="/recently-viewed" element={<RecentlyPage />} />
           </>
         )}
       </Routes>

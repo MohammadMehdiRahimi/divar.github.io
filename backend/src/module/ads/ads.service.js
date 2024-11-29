@@ -6,7 +6,7 @@ export default class adsService {
     try {
       let images = [];
       images = files.map((file) => file.filename);
-      console.log(body);
+
       const data = { ...body, images };
       await adsModel.create(data);
       return;
@@ -37,7 +37,6 @@ export default class adsService {
   }
   static async getMyAds(userId) {
     try {
-      console.log(userId);
       return await adsModel.find({
         author: new mongoose.Types.ObjectId(userId),
       });

@@ -44,7 +44,6 @@ export default function ModalComponents({
           mobile: mobileForSendCode,
         });
         if (data.success) {
-          console.log(data.data);
           setSendCode(true);
         }
       } catch (error) {

@@ -11,7 +11,6 @@ export default class CategoryController {
         icon,
         parent,
       });
-      console.log(result);
       return res.status(200).json({
         success: true,
         data: { message: categoryMessage.created },

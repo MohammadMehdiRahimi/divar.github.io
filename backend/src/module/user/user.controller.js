@@ -41,7 +41,7 @@ export default class userController {
   static async getBookmarks(req, res, next) {
     try {
       const { userId } = req.body;
-      
+
       const bookmarks = await userService.getBookmarks(userId);
       return res.json({
         success: true,
@@ -60,6 +60,32 @@ export default class userController {
         success: true,
         message: userMessage.deleteBookmarks,
         body: {},
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async addInRecentlyViewed(req, res, next) {
+    try {
+      const { userId, adsId } = req.body;
+      await userService.addInRecentlyViewed(userId, adsId);
+      return res.status(201).json({
+        success: true,
+        message: userMessage.addInRecentlyViewed,
+        body: {},
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async getRecentlyViewed(req, res, next) {
+    try {
+      const { userId } = req.body;
+      const recentlyViewed = await userService.getRecentlyViewed(userId);
+      return res.json({
+        success: true,
+        message: userMessage.done,
+        body: recentlyViewed,
       });
     } catch (error) {
       next(error);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import HomeComponents from "components/HomeComponents/Home.components";
+import HomeComponents from "pages/HomePage/HomeComponents/Home.components";
 import { useSelector } from "react-redux";
 import api from "config/axios.config";
 import Cookies from "js-cookie";

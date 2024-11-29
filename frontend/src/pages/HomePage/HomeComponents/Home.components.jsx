@@ -2,15 +2,37 @@ import React from "react";
 import { timeDif } from "utils/functions.js";
 import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
 import { useNavigate } from "react-router-dom";
+import api from "config/axios.config";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 export default function HomeComponents({ item }) {
+  const { userId } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  // get ads time and format this
+  const addInRecentlyViewed = async () => {
+    try {
+      const Authorization =
+        Cookies.get("Authorization") ?? localStorage.getItem("Authorization");
 
+      const { data } = await api.post(
+        "user/add-recently",
+        { adsId: item._id, userId },
+        { headers: { Authorization } }
+      );
+      if (data.success) {
+        navigate(`/ads/single?ads-id=${item._id}`);
+      } else {
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // get ads time and format this
   return (
     <div
       className="flex border border-slate-700 p-2 h-44 items-start rounded-md gap-4"
-      onClick={() => navigate(`/ads/single?ads-id=${item._id}`)}
+      onClick={addInRecentlyViewed}
     >
       <div className="w-1/2 flex flex-col justify-between h-full">
         <h3 className="text-white text-md leading-9">{item.title}</h3>
@@ -26,7 +48,6 @@ export default function HomeComponents({ item }) {
             ) : (
               <p className="text-white text-sm"> {timeDif(item.updatedAt)}</p>
             )}
-
             {item.city && <p className="text-[#787878]">در {item.city} </p>}
           </div>
         </div>

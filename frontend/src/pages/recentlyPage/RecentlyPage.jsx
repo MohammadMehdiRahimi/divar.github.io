@@ -3,24 +3,39 @@ import HomeComponents from "pages/HomePage/HomeComponents/Home.components";
 import { useSelector } from "react-redux";
 import api from "config/axios.config";
 import Cookies from "js-cookie";
-export default function BookmarksPage() {
-  const [adsListId, setAdsListId] = useState([]);
-  const { userBookmarks } = useSelector((state) => state.user);
+export default function RecentlyPage() {
   const [ads, setAds] = useState([]);
+  const [adsIdList, setAdsIdList] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
-
-  const getAdsDetails = async (adsListId) => {
+  const { userId } = useSelector((state) => state.user);
+  const Authorization =
+    Cookies.get("Authorization") ?? localStorage.getItem("Authorization");
+  const getAdsIdList = async () => {
     try {
-      const Authorization =
-        Cookies.get("Authorization") ?? localStorage.getItem("Authorization");
       const { data } = await api.post(
-        "ads/get-many-ads",
-        { adsIds: adsListId },
+        "user/get-recently",
+        { userId },
         {
           headers: {
             Authorization,
           },
         }
+      );
+
+      if (data.success) {
+        setAdsIdList([...data.body]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function getAds() {
+    try {
+      const { data } = await api.post(
+        "ads/get-many-ads",
+        { adsIds: adsIdList },
+        { headers: { Authorization } }
       );
       if (data.success) {
         setDataLoaded(true);
@@ -29,16 +44,15 @@ export default function BookmarksPage() {
     } catch (error) {
       console.log(error);
     }
-  };
-
+  }
   useEffect(() => {
-    setAdsListId((prev) => [...prev, ...userBookmarks]);
-  }, [userBookmarks]);
-  useEffect(() => {
-    if (adsListId.length > 0) {
-      getAdsDetails(adsListId);
+    if (userId != null) {
+      getAdsIdList();
     }
-  }, [adsListId]);
+  }, [userId]);
+  useEffect(() => {
+    getAds();
+  }, [adsIdList]);
 
   return (
     <>

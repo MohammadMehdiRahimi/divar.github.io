@@ -70,5 +70,34 @@ export default class userService {
       throw createHttpError.InternalServerError(error.message);
     }
   }
-  
+  static async addInRecentlyViewed(userId, adsId) {
+    try {
+      const updated = await userModel.findByIdAndUpdate(
+        userId,
+        {
+          $push: {
+            recentlyViewed: {
+              $each: [adsId],
+              $position: 0,
+              $slice: 10,
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      return updated;
+    } catch (error) {
+      throw createHttpError.InternalServerError(error.message);
+    }
+  }
+  static async getRecentlyViewed(userId) {
+    try {
+      const user = await this.getUser(userId, true);
+      return user.recentlyViewed;
+    } catch (error) {
+      throw createHttpError.InternalServerError(error.message);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { constNames } from "../exportConstNames.js";
 const OTPSchema = new Schema({
   code: { type: String, required: false, default: null },
@@ -11,7 +11,8 @@ const userSchema = new Schema(
     mobile: { type: String, required: true, unique: true },
     verifiedMobile: { type: Boolean, required: false, default: false },
     otp: { type: OTPSchema },
-    bookmarks: { type: [Schema.Types.ObjectId], ref: constNames.adsModel },
+    bookmarks: { type: [Types.ObjectId], ref: constNames.adsModel },
+    recentlyViewed: { type: [Types.ObjectId], ref: constNames.adsModel },
   },
   { timestamps: true }
 );

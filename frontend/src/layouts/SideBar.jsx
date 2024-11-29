@@ -29,7 +29,6 @@ export default function SideBar() {
   };
   const clickHandle = () => {
     dispatch(setIsSmall(false));
-    console.log("Menu icon clicked!");
   };
 
   const list = [
@@ -46,7 +45,11 @@ export default function SideBar() {
       function: () => navigate("/bookmarks"),
     },
     { name: "یادداشت", icon: NoteAltIcon },
-    { name: "بازدید های اخیر", icon: AccessTimeIcon },
+    {
+      name: "بازدید های اخیر",
+      icon: AccessTimeIcon,
+      function: () => navigate("/recently-viewed"),
+    },
     { name: "رزومه من", icon: PersonIcon },
     { name: "خروج", icon: LogoutIcon, function: logout },
   ];

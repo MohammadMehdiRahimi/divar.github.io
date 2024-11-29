@@ -1,4 +1,4 @@
-import HomeComponents from "components/HomeComponents/Home.components";
+import HomeComponents from "./HomeComponents/Home.components";
 import api from "config/axios.config";
 import { useEffect, useState } from "react";
 export default function HomePage() {
